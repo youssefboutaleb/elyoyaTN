@@ -1,19 +1,19 @@
 class Solution:
     def maximumGain(self, s: str, x: int, y: int) -> int:
-        def remove_pairs (pair, score):
+        if x> y :
+            pair="ab"
+        else :
+            pair="ba"
+        def remove_pairs(pair,pair_value):
             nonlocal s
-            res = 0
-            stack = []
-            for c in s:
-                if c == pair[1] and stack and stack [-1] == pair[0]:
+            stack =[]
+            res=0
+            for c in s :
+                if c ==pair[1] and stack and pair[0]== stack[-1]:
+                    res+=pair_value
                     stack.pop()
-                    res += score
-                else:
+                else :
                     stack.append(c)
-            s = "".join(stack)
-            return res
-        res = 0
-        pair = "ab" if x > y else "ba"
-        res += remove_pairs(pair, max(x, y))
-        res += remove_pairs (pair[::-1], min(x, y))
-        return res
+            s= "".join(stack)
+            return res        
+        return remove_pairs(pair,max(x,y)) + remove_pairs(pair[::-1],min(x,y))
